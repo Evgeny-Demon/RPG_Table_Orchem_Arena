@@ -1,0 +1,25 @@
+# Секретные конфиги (БД)
+/config/secure_bd_conf.php
+
+# Динамический контент кампаний (карты, аватарки, токены и чаты)
+# Игнорируем всё внутри src/compains/, кроме самой структуры, если нужно
+/src/compains/*/avatar/*
+/src/compains/*/maps/*
+/src/compains/*/tokens/*
+/src/compains/*/chat/*
+/src/compains/*/admin-panel-view/*
+
+# Системные файлы IDE и редакторов
+.idea/
+.vscode/
+*.log
+
+
+/vendor/
+
+
+# Игнорируем пользовательские изображения карт
+/public/assets/images/*
+# Разрешаем Git отслеживать служебный файл, чтобы папка не удалилась
+!/public/assets/images/.gitkeep
+

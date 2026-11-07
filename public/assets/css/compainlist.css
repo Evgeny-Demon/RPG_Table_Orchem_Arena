@@ -1,0 +1,99 @@
+:root {
+            --bg-main: #121214;
+            --bg-card: #1a1a1e;
+            --bg-card-hover: #222227;
+            --border-color: #2d2d34;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0ab;
+            --accent-color: #5271ff;
+            --danger-color: #ff4d4d;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+
+        .company-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 24px;
+        }
+
+        .company-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .company-item:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-color);
+            background: var(--bg-card-hover);
+        }
+
+        .company-item a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: bold;
+            text-align: center;
+            width: 100%;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .company-item img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 50%; 
+            border: 2px solid var(--border-color);
+            margin-bottom: 12px;
+            transition: border-color 0.2s;
+        }
+
+        .company-item:hover img {
+            border-color: var(--accent-color);
+        }
+
+        .delete-form {
+            width: 100%;
+            margin-top: auto;
+        }
+
+        .delete-btn {
+            width: 100%;
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            padding: 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.15s;
+        }
+
+        .delete-btn:hover {
+            background: var(--danger-color);
+            border-color: var(--danger-color);
+            color: #fff;
+        }

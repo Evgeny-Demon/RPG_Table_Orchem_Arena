@@ -1,0 +1,14 @@
+{
+    "name": "root/orchem-arena",
+    "autoload": {
+        "psr-4": {
+            "app\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Evgeny-demon"
+        }
+    ],
+    "require": {}
+}
