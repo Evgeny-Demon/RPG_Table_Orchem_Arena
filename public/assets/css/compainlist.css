@@ -1,99 +1,167 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=EB+Garamond:wght@400;500;600&display=swap');
+
 :root {
-            --bg-main: #121214;
-            --bg-card: #1a1a1e;
-            --bg-card-hover: #222227;
-            --border-color: #2d2d34;
-            --text-primary: #ffffff;
-            --text-secondary: #a0a0ab;
-            --accent-color: #5271ff;
-            --danger-color: #ff4d4d;
-        }
+    --paper: #77746e;
+    --paper-light: #89857d;
+    --ink: #1c1b19;
+    --ink-soft: #302e29;
+    --line: #46433d;
+    --muted: #45413b;
+}
 
-        body {
-            background-color: var(--bg-main);
-            color: var(--text-primary);
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-            margin: 0;
-            padding: 40px 20px;
-        }
+/* CONTAINER */
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+.container {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 35px 30px;
 
-        h1 {
-            font-size: 24px;
-            margin-bottom: 30px;
-        }
+    color: var(--ink);
+    font-family: 'EB Garamond', serif;
+}
 
-        .company-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 24px;
-        }
+/* HEADING */
 
-        .company-item {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-            transition: transform 0.2s, border-color 0.2s;
-        }
+.container > h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 27px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    text-align: center;
 
-        .company-item:hover {
-            transform: translateY(-4px);
-            border-color: var(--accent-color);
-            background: var(--bg-card-hover);
-        }
+    color: var(--ink);
+    margin-bottom: 35px;
+}
 
-        .company-item a {
-            text-decoration: none;
-            color: var(--text-primary);
-            font-weight: bold;
-            text-align: center;
-            width: 100%;
-            display: block;
-            margin-bottom: 15px;
-        }
+/* COMPANY GRID */
 
-        .company-item img {
-            width: 120px;
-            height: 120px;
-            object-fit: cover;
-            border-radius: 50%; 
-            border: 2px solid var(--border-color);
-            margin-bottom: 12px;
-            transition: border-color 0.2s;
-        }
+.company-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 25px;
+}
 
-        .company-item:hover img {
-            border-color: var(--accent-color);
-        }
+/* COMPANY ITEM */
 
-        .delete-form {
-            width: 100%;
-            margin-top: auto;
-        }
+.company-item {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
 
-        .delete-btn {
-            width: 100%;
-            background: transparent;
-            color: var(--text-secondary);
-            border: 1px solid var(--border-color);
-            padding: 8px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 13px;
-            transition: all 0.15s;
-        }
+    border: 1px solid rgba(50, 46, 39, 0.55);
+    background: rgba(25, 23, 20, 0.045);
 
-        .delete-btn:hover {
-            background: var(--danger-color);
-            border-color: var(--danger-color);
-            color: #fff;
-        }
+    box-shadow:
+        0 10px 25px rgba(20, 18, 15, 0.10),
+        inset 0 0 20px rgba(20, 18, 15, 0.035);
+
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.25s ease;
+}
+
+.company-item:hover {
+    background: rgba(25, 23, 20, 0.075);
+    border-color: var(--line);
+    transform: translateY(-3px);
+}
+
+/* COMPANY LINK */
+
+.company-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+
+    color: var(--ink);
+    text-decoration: none;
+    text-align: center;
+
+    font-family: 'Cinzel', serif;
+    font-size: 15px;
+    letter-spacing: 1px;
+}
+
+/* AVATAR */
+
+.company-item img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+
+    border: 1px solid var(--line);
+    background: rgba(25, 23, 20, 0.12);
+}
+
+/* COMPANY NAME */
+
+.company-name {
+    overflow-wrap: anywhere;
+}
+
+/* DELETE FORM */
+
+.delete-form {
+    margin-top: 18px;
+    width: 100%;
+}
+
+.delete-btn {
+    width: 100%;
+    min-height: 37px;
+    padding: 7px 10px;
+
+    border: 1px solid var(--line);
+    background: rgba(25, 23, 20, 0.12);
+
+    color: var(--ink);
+
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.delete-btn:hover {
+    background: var(--ink-soft);
+    color: var(--paper-light);
+    border-color: var(--ink-soft);
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 650px) {
+    .container {
+        padding: 30px 16px;
+    }
+
+    .container > h1 {
+        font-size: 23px;
+        letter-spacing: 2px;
+    }
+
+    .company-grid {
+        grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
+        gap: 15px;
+    }
+
+    .company-item {
+        padding: 10px;
+    }
+
+    .company-link {
+        font-size: 13px;
+    }
+}

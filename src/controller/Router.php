@@ -5,13 +5,17 @@ namespace app\controller;
 
 use app\core\Session;
 use app\core\Request;
+
+//POST
 use app\controller\RegisterController;
 use app\controller\AuthenticationController;
 use app\controller\CompainCreateController;
 use app\controller\CompainDelController;
 
+//GET
 use app\controller\DashboardMasterCompainController;
 use app\controller\CreateMapController;
+use app\controller\LogoutCompainController;
 
 
 class Router {
@@ -24,12 +28,14 @@ class Router {
             'register' => RegisterController::class,
             'login' => AuthenticationController::class,
             'createcompain' => CompainCreateController::class,
-            'delcompain' => CompainDelController::class
+            'delcompain' => CompainDelController::class,
+            'create-map' => CreateMapController::class
         ],
         'GET' => [
             '/exit' => LogoutController::class,
+            '/exit-compain' => LogoutCompainController::class,
             '/company/'=> DashboardMasterCompainController::class,
-            '/create-map' => CreateMapController::class
+            '/map-image' => CreateMapController::class
         ]
     ];
     }
@@ -39,7 +45,7 @@ class Router {
     private object $session;
     
 
-    public function route() {
+    public function route():void {
 
         if ($this->request->isPost()) {
             foreach($this->requestID['POST'] as $key => $value) {

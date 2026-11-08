@@ -10,7 +10,7 @@ class CompainModel {
     
     private object $request;
     private string $targetDir;
-    private array $arrayDir = ['tokens/', 'maps/', 'chat/', 'avatar/', 'admin-panel-view/'];
+    private array $arrayDir = ['tokens/', 'maps/', 'chat/', 'maps-view/', 'avatar/', 'admin-panel-view/'];
     private int $compainKey;
     private object $db;
     private object $session;
@@ -66,8 +66,67 @@ $content = <<<HTML
     <title>Admin-dashboard</title>
 </head>
 <body>
-    <h1>УРРРРАААА!!!!!</h1>
+    var_dump($_SESSION);
+    <a href='/exit-compain'>выйти из компании</a>
     <h1>{$compainName}</h1>
+    <form method="POST" enctype="multipart/form-data">
+
+    <input type="hidden" name="action_id" value="create-map">
+    <input type="hidden" name="MAX_FILE_SIZE" value="5000000">
+
+    <div class="form-group">
+        <label for="map-name">Название карты</label>
+        <input
+            type="text"
+            name="name"
+            id="map-name"
+            placeholder="Введите название карты"
+            required
+        >
+    </div>
+
+    <div class="form-group">
+        <label for="columns">Ширина карты (колонки)</label>
+        <select name="columns" id="columns" required>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+            <option value="25">25</option>
+            <option value="30" selected>30</option>
+            <option value="35">35</option>
+            <option value="40">40</option>
+            <option value="50">50</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="rows">Высота карты (строки)</label>
+        <select name="rows" id="rows" required>
+            <option value="10">10</option>
+            <option value="15" selected>15</option>
+            <option value="20">20</option>
+            <option value="25">25</option>
+            <option value="30">30</option>
+            <option value="40">40</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="map-file">Файл карты</label>
+        <input
+            type="file"
+            name="file"
+            id="map-file"
+            accept="image/*"
+            required
+        >
+    </div>
+
+    <button type="submit" class="submit-btn">
+        Создать карту
+    </button>
+
+</form>
 </body>
 </html>
 HTML;

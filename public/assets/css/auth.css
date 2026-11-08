@@ -1,0 +1,303 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=EB+Garamond:wght@400;500;600&display=swap');
+
+:root {
+    --paper: #77746e;
+    --paper-light: #89857d;
+
+    --ink: #1c1b19;
+    --ink-soft: #302e29;
+
+    --line: #46433d;
+    --muted: #45413b;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    color: var(--ink);
+    font-family: 'EB Garamond', serif;
+
+    background-color: var(--paper);
+
+    background-image:
+        radial-gradient(
+            ellipse at 50% 35%,
+            rgba(190, 184, 169, 0.13),
+            transparent 65%
+        ),
+        repeating-linear-gradient(
+            0deg,
+            rgba(30, 27, 22, 0.025) 0,
+            rgba(30, 27, 22, 0.025) 1px,
+            transparent 1px,
+            transparent 4px
+        );
+}
+
+.auth-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 24px;
+}
+
+/* BRAND */
+
+.brand {
+    text-align: center;
+    margin-bottom: 48px;
+}
+
+.brand-decoration {
+    font-size: 22px;
+    color: var(--ink-soft);
+    margin-bottom: 8px;
+}
+
+.brand h1 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(42px, 7vw, 66px);
+    font-weight: 500;
+    letter-spacing: 12px;
+    line-height: 1.2;
+}
+
+.brand > p {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 5px;
+    margin-top: 8px;
+    color: var(--muted);
+}
+
+.brand-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 24px;
+    color: var(--ink-soft);
+}
+
+.brand-divider span {
+    width: 65px;
+    height: 1px;
+    background: var(--line);
+}
+
+/* AUTH CONTAINER */
+
+.auth-container {
+    width: 100%;
+    max-width: 850px;
+
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr;
+    gap: 42px;
+
+    padding: 42px 48px;
+
+    border: 1px solid rgba(50, 46, 39, 0.55);
+
+    background: rgba(25, 23, 20, 0.045);
+
+    box-shadow:
+        0 15px 45px rgba(20, 18, 15, 0.12),
+        inset 0 0 30px rgba(20, 18, 15, 0.035);
+}
+
+.vertical-divider {
+    background: linear-gradient(
+        to bottom,
+        transparent,
+        var(--line),
+        transparent
+    );
+}
+
+/* CARDS */
+
+.auth-card h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 23px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.section-description {
+    text-align: center;
+    font-size: 17px;
+    color: var(--muted);
+    margin-bottom: 35px;
+}
+
+/* FORM */
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    color: var(--ink-soft);
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    height: 38px;
+
+    border: none;
+    border-bottom: 1px solid var(--line);
+    border-radius: 0;
+
+    outline: none;
+
+    background: transparent;
+
+    color: var(--ink);
+    font-family: 'EB Garamond', serif;
+    font-size: 18px;
+
+    transition: border-color 0.2s ease;
+}
+
+.form-group input::placeholder {
+    color: rgba(35, 32, 27, 0.48);
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-bottom-color: var(--ink);
+}
+
+.form-group select {
+    cursor: pointer;
+}
+
+.form-group select option {
+    background: var(--paper);
+    color: var(--ink);
+}
+
+/* REMEMBER ME */
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    font-size: 16px;
+    color: var(--ink-soft);
+
+    cursor: pointer;
+    margin: 5px 0 28px;
+}
+
+.remember-me input {
+    accent-color: var(--ink-soft);
+    cursor: pointer;
+}
+
+/* BUTTON */
+
+.auth-button {
+    width: 100%;
+    min-height: 44px;
+
+    margin-top: 8px;
+
+    border: 1px solid var(--line);
+    background: rgba(25, 23, 20, 0.12);
+
+    color: var(--ink);
+
+    font-family: 'Cinzel', serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.auth-button:hover {
+    background: var(--ink-soft);
+    color: var(--paper-light);
+    border-color: var(--ink-soft);
+}
+
+/* FOOTER */
+
+.page-footer {
+    text-align: center;
+    margin-top: 38px;
+    color: var(--muted);
+}
+
+.page-footer span {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+}
+
+.page-footer p {
+    font-size: 15px;
+    margin-top: 5px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 650px) {
+
+    .auth-page {
+        padding: 35px 16px;
+    }
+
+    .brand {
+        margin-bottom: 32px;
+    }
+
+    .brand h1 {
+        letter-spacing: 7px;
+    }
+
+    .auth-container {
+        max-width: 420px;
+        grid-template-columns: 1fr;
+        gap: 35px;
+        padding: 30px 24px;
+    }
+
+    .vertical-divider {
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(
+            to right,
+            transparent,
+            var(--line),
+            transparent
+        );
+    }
+}
