@@ -11,11 +11,14 @@ use app\controller\RegisterController;
 use app\controller\AuthenticationController;
 use app\controller\CompainCreateController;
 use app\controller\CompainDelController;
+use app\controller\DeleteMapController;
 
 //GET
 use app\controller\DashboardMasterCompainController;
 use app\controller\CreateMapController;
 use app\controller\LogoutCompainController;
+use app\controller\GetMapController;
+use app\controller\ExitMapController;
 
 
 class Router {
@@ -27,15 +30,18 @@ class Router {
         'POST' => [
             'register' => RegisterController::class,
             'login' => AuthenticationController::class,
-            'createcompain' => CompainCreateController::class,
-            'delcompain' => CompainDelController::class,
-            'create-map' => CreateMapController::class
+            'createcompain' => CompainCreateController::class, //создание компании
+            'delcompain' => CompainDelController::class, //удаление компании
+            'create-map' => CreateMapController::class, //создание карты
+            'delete-map' => DeleteMapController::class
         ],
         'GET' => [
             '/exit' => LogoutController::class,
             '/exit-compain' => LogoutCompainController::class,
-            '/company/'=> DashboardMasterCompainController::class,
-            '/map-image' => CreateMapController::class
+            '/company/'=> DashboardMasterCompainController::class, //переход в админку мастера
+            '/map-image' => GetMapController::class, //вспомогательный процесс контроллера для получения фоновой картинки для карты боя
+            '/get-map' => GetMapController::class, //переход на карту боя
+            '/exit-map' => ExitMapController::class
         ]
     ];
     }

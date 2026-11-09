@@ -1,0 +1,242 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=EB+Garamond:wght@400;500;600&display=swap');
+
+:root {
+    --paper: #77746e;
+    --paper-light: #89857d;
+    --ink: #1c1b19;
+    --ink-soft: #302e29;
+    --line: #46433d;
+    --muted: #45413b;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    color: var(--ink);
+    font-family: 'EB Garamond', serif;
+    background-color: var(--paper);
+    background-image:
+        radial-gradient(ellipse at 50% 35%, rgba(190, 184, 169, 0.13), transparent 65%),
+        repeating-linear-gradient(
+            0deg,
+            rgba(30, 27, 22, 0.025) 0,
+            rgba(30, 27, 22, 0.025) 1px,
+            transparent 1px,
+            transparent 4px
+        );
+}
+
+/* TOPBAR */
+
+.topbar {
+    height: 42px;
+    padding: 0 3%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--line);
+    background: rgba(25, 23, 20, 0.07);
+}
+
+.brand {
+    font-family: 'Cinzel', serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 3px;
+}
+
+.topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 14px;
+}
+
+.topbar-right a {
+    color: var(--ink);
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 1px;
+    text-decoration: none;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 2px;
+}
+
+.topbar-right a:hover {
+    color: var(--paper-light);
+    border-color: var(--ink);
+}
+
+/* DASHBOARD */
+
+.dashboard {
+    width: min(94%, 1250px);
+    margin: 15px auto;
+}
+
+/* CREATE PANEL */
+
+.create-panel {
+    padding: 9px 12px;
+    border: 1px solid rgba(50, 46, 39, 0.55);
+    background: rgba(25, 23, 20, 0.045);
+}
+
+.panel-title {
+    margin-bottom: 7px;
+}
+
+.panel-title h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+}
+
+/* FORM */
+
+.create-panel form {
+    display: grid;
+    grid-template-columns: minmax(140px, 1.5fr) 65px 65px minmax(130px, 1fr) auto;
+    align-items: end;
+    gap: 9px;
+}
+
+.form-group {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.form-group label {
+    font-family: 'Cinzel', serif;
+    font-size: 8px;
+    letter-spacing: 1px;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    height: 27px;
+    padding: 0 4px;
+    border: none;
+    border-bottom: 1px solid var(--line);
+    border-radius: 0;
+    outline: none;
+    background: transparent;
+    color: var(--ink);
+    font-family: 'EB Garamond', serif;
+    font-size: 14px;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-bottom-color: var(--ink);
+}
+
+.form-group input::placeholder {
+    color: rgba(35, 32, 27, 0.48);
+}
+
+.form-group select {
+    cursor: pointer;
+}
+
+.form-group select option {
+    background: var(--paper);
+    color: var(--ink);
+}
+
+.file-group input[type="file"] {
+    font-size: 11px;
+    padding-top: 4px;
+}
+
+.file-group input[type="file"]::file-selector-button {
+    border: 1px solid var(--line);
+    background: rgba(25, 23, 20, 0.08);
+    color: var(--ink);
+    padding: 3px 6px;
+    margin-right: 5px;
+    font-family: 'Cinzel', serif;
+    font-size: 8px;
+    cursor: pointer;
+}
+
+/* BUTTON */
+
+.create-panel button {
+    height: 27px;
+    padding: 0 10px;
+    white-space: nowrap;
+    border: 1px solid var(--line);
+    background: rgba(25, 23, 20, 0.12);
+    color: var(--ink);
+    font-family: 'Cinzel', serif;
+    font-size: 8px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.create-panel button:hover {
+    background: var(--ink-soft);
+    color: var(--paper-light);
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 850px) {
+    .create-panel form {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .map-name,
+    .file-group {
+        grid-column: 1 / -1;
+    }
+
+    .create-panel button {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 500px) {
+    .topbar {
+        padding: 0 15px;
+    }
+
+    .topbar-right {
+        gap: 12px;
+    }
+
+    .dashboard {
+        width: 94%;
+        margin-top: 12px;
+    }
+
+    .create-panel {
+        padding: 9px;
+    }
+
+    .create-panel form {
+        grid-template-columns: 1fr;
+    }
+
+    .map-name,
+    .file-group,
+    .create-panel button {
+        grid-column: auto;
+    }
+}

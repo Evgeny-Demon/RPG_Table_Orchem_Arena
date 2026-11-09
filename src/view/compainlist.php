@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/assets/css/compainlist.css">
-    <title>ORCHEM — Список кампаний</title>
+    <title>ORCHEM — Список компаний</title>
 </head>
 <body>
 
@@ -45,7 +45,6 @@
                 }
             }
 
-            // Маршрут не изменяем
             $companyLink = '/company/?' . $counter - 1 . '=admin-dashboard';
 
             $safeLink = htmlspecialchars($companyLink);

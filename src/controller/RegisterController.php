@@ -17,5 +17,6 @@ public function __construct() {
 
 public function handle() {
     $this->model->setUser();
+    require_once dirname(__DIR__) . '/view/main.php';
 }
 }

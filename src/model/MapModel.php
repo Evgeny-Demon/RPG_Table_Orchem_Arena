@@ -53,6 +53,20 @@ class MapModel {
         for ($i = 0; $i < $totalCells; $i++) {
                 $stringTotalCells .= '<div class="cell"></div>';
         }
+        //генерация кнопки удаления карты
+        $delButtonContent = <<<BUTTON
+        <form action="/delete-map" method="POST">
+
+        <input type="hidden" name="action_id" value="delete-map">
+
+        <input type="hidden" name="map_file" value="{$nameMap}">
+
+        <input type="hidden" name="image_file" value="{$fileName}">
+
+        <button type="submit">Удалить карту</button>
+
+        </form>
+BUTTON;
         //генерация страницы по параметрам
         $content = <<<HTML
         <!DOCTYPE html>
@@ -68,7 +82,8 @@ class MapModel {
     <script src="/assets/js/map-controls.js" defer></script>
 </head>
 <body>
-    
+    {$delButtonContent}
+    <a href='/exit-map'>выйти из карты</a>
     <div class="map">
         <img src="/map-image?name={$fileName}"
         class="map-background"
@@ -93,10 +108,18 @@ class MapModel {
 HTML;
         file_put_contents($path, $content);
 
-        var_dump(\COMPAIN_DIR);
-        var_dump($this->session->get('active_compain_name'));
-        var_dump($path);
-        var_dump(is_dir(dirname($path)));
+    }
+
+
+    //удаление карты
+    public function delMap(): void {
+        $keyForMap = $this->request->getRequestKey('image_file');
+        $pathImg = COMPAIN_DIR . '/' . $this->session->get()['active_compain_name'] . '/maps/' . $keyForMap;
+        unlink($pathImg);
+
+        $keyForHTML = $this->request->getRequestKey('map_file');
+        $pathHTML = COMPAIN_DIR . '/' . $this->session->get()['active_compain_name'] . '/maps-view/' . $keyForHTML . '.php';
+        unlink($pathHTML);
     }
 
 }

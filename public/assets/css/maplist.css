@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=EB+Garamond:wght@400;500;600&display=swap');
+
+:root {
+    --paper: #77746e;
+    --paper-light: #89857d;
+    --ink: #1c1b19;
+    --ink-soft: #302e29;
+    --line: #46433d;
+    --muted: #45413b;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    color: var(--ink);
+    font-family: 'EB Garamond', serif;
+    background-color: var(--paper);
+    background-image:
+        radial-gradient(
+            ellipse at 50% 35%,
+            rgba(190, 184, 169, 0.13),
+            transparent 65%
+        ),
+        repeating-linear-gradient(
+            0deg,
+            rgba(30, 27, 22, 0.025) 0,
+            rgba(30, 27, 22, 0.025) 1px,
+            transparent 1px,
+            transparent 4px
+        );
+}
+
+/* CONTAINER */
+
+.container {
+    width: min(94%, 1250px);
+    margin: 20px auto;
+}
+
+/* TITLE */
+
+.container h1 {
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+
+    font-family: 'Cinzel', serif;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 2px;
+
+    color: var(--ink);
+    border-bottom: 1px solid var(--line);
+}
+
+/* MAP LINKS */
+
+.container a {
+    display: block;
+    width: fit-content;
+    min-width: 220px;
+
+    padding: 7px 10px;
+    margin-bottom: 4px;
+
+    color: var(--ink);
+    font-family: 'EB Garamond', serif;
+    font-size: 16px;
+    text-decoration: none;
+
+    border-bottom: 1px solid rgba(70, 67, 61, 0.45);
+
+    transition:
+        background 0.2s,
+        padding-left 0.2s;
+}
+
+.container a:hover {
+    padding-left: 15px;
+    background: rgba(25, 23, 20, 0.08);
+}
+
+/* MOBILE */
+
+@media (max-width: 500px) {
+    .container {
+        width: 94%;
+        margin-top: 15px;
+    }
+
+    .container h1 {
+        font-size: 16px;
+    }
+
+    .container a {
+        width: 100%;
+    }
+}

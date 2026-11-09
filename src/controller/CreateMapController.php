@@ -16,7 +16,16 @@ class CreateMapController {
     }
 
     public function handle(): void {
-
+        $this->model->createMap();
+        $key = $this->session->get()["active_compain_name"];
+        require_once COMPAIN_DIR . '/' . $key . '/admin-panel-view/admin.php';
+        require_once dirname(__DIR__) . '/view/maplist.php';
+    } 
+    
+}  
+    
+    /*{
+        
         $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
         if ($path === '/map-image') {
@@ -46,3 +55,4 @@ class CreateMapController {
         exit;
     }
 }
+*/

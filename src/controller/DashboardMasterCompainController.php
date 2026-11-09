@@ -26,6 +26,9 @@ class DashboardMasterCompainController {
         //по этому же ключу создаем запись о том, что компания активна в сессии чтобы потом работать с маршрутами компании и самой компанией
         $active_compain_name = $key;
         $this->session->set('active_compain_name', $key);
+
+        //подключаем список карт
+        require_once dirname(__DIR__) . '/view/maplist.php';
         
     }
 }
