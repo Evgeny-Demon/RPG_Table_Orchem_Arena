@@ -10,7 +10,7 @@ class CompainModel {
     
     private object $request;
     private string $targetDir;
-    private array $arrayDir = ['tokens/', 'maps/', 'chat/', 'maps-view/', 'avatar/', 'admin-panel-view/'];
+    private array $arrayDir = ['tokens/', 'maps/', 'chat/', 'chat-view/', 'maps-view/', 'avatar/', 'admin-panel-view/'];
     private int $compainKey;
     private object $db;
     private object $session;
@@ -104,28 +104,28 @@ $content = <<<HTML
             </div>
 
             <div class="form-group">
-                <label for="columns">Колонки</label>
-                <select name="columns" id="columns" required>
-                    <option value="10">10</option>
+                <label for="x">Ширина</label>
+                <select name="x" id="x" required>
+                    <option value="10" selected>10</option>
                     <option value="15">15</option>
-                    <option value="20">20</option>
-                    <option value="25">25</option>
-                    <option value="30" selected>30</option>
-                    <option value="35">35</option>
-                    <option value="40">40</option>
-                    <option value="50">50</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="rows">Строки</label>
-                <select name="rows" id="rows" required>
-                    <option value="10">10</option>
-                    <option value="15" selected>15</option>
                     <option value="20">20</option>
                     <option value="25">25</option>
                     <option value="30">30</option>
                     <option value="40">40</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="y">Высота</label>
+                <select name="y" id="y" required>
+                    <option value="10" >10</option>
+                    <option value="15"selected>15</option>
+                    <option value="20">20</option>
+                    <option value="25">25</option>
+                    <option value="30">30</option>
+                    <option value="35">35</option>
+                    <option value="40">40</option>
+                    <option value="50">50</option>
                 </select>
             </div>
 
@@ -155,18 +155,74 @@ HTML;
         file_put_contents($filePath, $content);
     }
 
+    private function createChat() : void {
+        $fileName = 'chat.txt';
+        $compainName = $this->request->getRequestKey('name');
+        $filePath = COMPAIN_DIR . '/' . $compainName . '/chat/' . $fileName;
+        $content = 'Чат компании';
+        file_put_contents($filePath, $content);
+
+        $ChatNameView = 'chat.php';
+        $filePathView = COMPAIN_DIR . '/' .  $compainName . '/chat-view/' . 'chat.php'; 
+        $ChatNameView = 'chat.php';
+
+$filePathView = COMPAIN_DIR . '/' . $compainName . '/chat-view/' . $ChatNameView;
+
+$contentChatView = <<<'HTML'
+<head><link rel="stylesheet" href="/assets/css/chat.css"></head>
+<aside class="company-chat">
+
+    <header class="company-chat__header">
+        <h2>Чат компании</h2>
+        <span>Общий канал</span>
+    </header>
+
+    <section
+        class="company-chat__messages"
+        id="companyChatMessages"
+        aria-live="polite"
+    >
+        <div class="company-chat__empty">
+            Здесь пока нет сообщений
+        </div>
+    </section>
+
+    <form class="company-chat__form" id="companyChatForm">
+
+        <textarea
+            name="message"
+            id="companyChatInput"
+            placeholder="Введите сообщение..."
+            rows="2"
+            required
+        ></textarea>
+
+        <button type="submit">
+            Отправить
+        </button>
+
+    </form>
+
+</aside>
+HTML;
+
+file_put_contents($filePathView, $contentChatView);
+
+        }
+
     public function createCompain() : void {
         $compainName = $this->request->getRequestKey('name');
-        $this->targetDir = dirname(__DIR__) . '/compains/' . $compainName . '/';
+        $this->targetDir = COMPAIN_DIR . '/' . $compainName . '/';
         mkdir($this->targetDir, 0777, true);
 
         foreach ($this->arrayDir as $v) {
-            mkdir($this->targetDir . $v, 0777, true);  
+            mkdir($this->targetDir . $v, 0777, true);
         }
 
         $this->setFile() ;
         $this->setCompainInDB();
         $this->createMasterAdminFileHTML();
+        $this->createChat();
     }
 
     //удаление компании -------------

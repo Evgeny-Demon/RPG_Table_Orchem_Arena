@@ -44,29 +44,33 @@ class MapModel {
         
 
         //параметры сетки бояч
-        $columns = $this->request->getRequestKey('columns'); //ширина
-        $rows = $this->request->getRequestKey('rows'); //высота
+        
+        $x = $this->request->getRequestKey('x'); //ширина
+        $y = $this->request->getRequestKey('y'); //высота
         $cellSize = 50; 
-        $totalCells = $columns * $rows;
+        $totalCells = $x * $y;
         $stringTotalCells = '';
         //генерация ячеек сетки боя
         for ($i = 0; $i < $totalCells; $i++) {
                 $stringTotalCells .= '<div class="cell"></div>';
         }
         //генерация кнопки удаления карты
-        $delButtonContent = <<<BUTTON
+        $toolbarContent = <<<HTML
+        <header class="map-toolbar">
+
         <form action="/delete-map" method="POST">
-
         <input type="hidden" name="action_id" value="delete-map">
-
         <input type="hidden" name="map_file" value="{$nameMap}">
-
         <input type="hidden" name="image_file" value="{$fileName}">
-
         <button type="submit">Удалить карту</button>
-
         </form>
-BUTTON;
+
+        <a href="/exit-map">Выйти из карты</a>
+
+        </header>
+HTML;
+        $mapWidth = $x * 50 + 2;
+        $mapHeight = $y * 50 + 2;
         //генерация страницы по параметрам
         $content = <<<HTML
         <!DOCTYPE html>
@@ -82,9 +86,13 @@ BUTTON;
     <script src="/assets/js/map-controls.js" defer></script>
 </head>
 <body>
-    {$delButtonContent}
-    <a href='/exit-map'>выйти из карты</a>
-    <div class="map">
+    {$toolbarContent}
+    
+    <div class="map" style="
+    position: relative;
+    width: {$mapWidth}px;
+    height: {$mapHeight}px;
+">
         <img src="/map-image?name={$fileName}"
         class="map-background"
         id="mapBackground"
@@ -94,8 +102,8 @@ BUTTON;
         <div
     class="grid"
     style="
-        grid-template-columns: repeat({$columns}, 50px);
-        grid-template-rows: repeat({$rows}, 50px);
+        grid-template-rows: repeat({$y}, 50px);
+        grid-template-columns: repeat({$x}, 50px);
     "
         >
          {$stringTotalCells}

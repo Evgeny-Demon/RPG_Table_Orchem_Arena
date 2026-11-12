@@ -1,14 +1,17 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=EB+Garamond:wght@400;500;600&display=swap');
+
 * {
     box-sizing: border-box;
 }
 
-    .map {
+/* Игровое поле */
+.map {
+    position: relative;
     width: 502px;
     height: 502px;
     overflow: hidden;
 }
-
 
 /* Фоновая карта */
 .map-background {
@@ -57,3 +60,61 @@
     user-select: none;
 }
 
+/* Панель управления */
+.map-toolbar {
+    position: relative;
+    z-index: 10;
+
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    padding: 12px 20px;
+    margin-bottom: 15px;
+
+    background: #77746e;
+    border: 1px solid rgba(50, 46, 39, 0.55);
+
+    box-shadow:
+        0 5px 15px rgba(20, 18, 15, 0.12),
+        inset 0 0 15px rgba(20, 18, 15, 0.035);
+}
+
+.map-toolbar form {
+    margin: 0;
+}
+
+.map-toolbar button,
+.map-toolbar a {
+    display: inline-block;
+    padding: 8px 14px;
+
+    border: 1px solid #46433d;
+    border-radius: 0;
+
+    background: rgba(25, 23, 20, 0.12);
+    color: #1c1b19;
+
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+
+    text-decoration: none;
+    cursor: pointer;
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease;
+}
+
+.map-toolbar button:hover,
+.map-toolbar a:hover {
+    background: #302e29;
+    color: #89857d;
+}
+
+body {
+    background-color: #77746e;
+}
