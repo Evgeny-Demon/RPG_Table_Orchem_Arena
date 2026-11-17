@@ -1,0 +1,21 @@
+{
+    "log": {
+        "level": "debug"
+    },
+    "client": {
+        "allowed_origins": [
+            "http://localhost:8081"
+        ],
+        "allow_anonymous_connect_without_token": true,
+        "insecure": true
+    },
+    "http_api": {
+        "key": "orchem_dev_api_key"
+    },
+
+    "health": {
+    "enabled": true
+    }
+  
+}
+

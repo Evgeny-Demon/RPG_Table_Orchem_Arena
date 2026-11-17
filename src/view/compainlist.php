@@ -54,7 +54,7 @@
             echo <<<HTML
             <div class="company-item">
 
-                <a href="{$safeLink}" class="company-link">
+                <a href="{$safeLink}?game_id={$safeGameId}" class="company-link">
                     <img src="{$base64Src}" alt="{$safeName}">
                     <div class="company-name">{$safeName}</div>
                 </a>

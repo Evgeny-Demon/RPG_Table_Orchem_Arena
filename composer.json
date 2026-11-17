@@ -10,5 +10,7 @@
             "name": "Evgeny-demon"
         }
     ],
-    "require": {}
+    "require": {
+        "centrifugal/phpcent": "~6.0"
+    }
 }

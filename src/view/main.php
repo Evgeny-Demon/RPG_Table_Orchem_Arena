@@ -132,6 +132,6 @@
     </footer>
 
 </div>
-
+<a href="test">тест веб сокетов</a>
 </body>
 </html>

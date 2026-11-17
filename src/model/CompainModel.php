@@ -10,7 +10,7 @@ class CompainModel {
     
     private object $request;
     private string $targetDir;
-    private array $arrayDir = ['tokens/', 'maps/', 'chat/', 'chat-view/', 'maps-view/', 'avatar/', 'admin-panel-view/'];
+    private array $arrayDir = ['tokens/', 'maps/', 'chat-view/', 'maps-view/', 'avatar/', 'admin-panel-view/'];
     private int $compainKey;
     private object $db;
     private object $session;
@@ -44,16 +44,26 @@ class CompainModel {
     move_uploaded_file($tmp_name, $target_file);
     }
 
-    private function setCompainInDB() {
+    private function setCompainInDB() : void {
         $compainName = $this->request->getRequestKey('name');
         $masterID = $this->session->get()['id'];
-        $sqlInsert = 'INSERT into table_arena.compains (id_master, name) VALUES (:id_mas, :comp_name);';
+        $sqlInsert = 'INSERT into table_arena.compains (id_master, name, chat) VALUES (:id_mas, :comp_name, :chat);';
         $stml = $this->db->prepare($sqlInsert);
-        $stml->execute([':id_mas' => $masterID, ':comp_name' => $compainName]);
+        $chatName = 'Чат компании ' . $compainName;
+        $stml->execute([':id_mas' => $masterID, ':comp_name' => $compainName, ':chat' => $chatName]);
 
     }
 
-    private function createMasterAdminFileHTML() : void {
+    private function selectChatIdFromDb() : int {
+        $sql = "SELECT max(game_id) from table_arena.compains";
+        $stmt =  $this->db->prepare($sql);
+        $stmt->execute();
+
+        $gameId = (int)$stmt->fetchColumn();
+        return $gameId;
+    }
+
+    private function createMasterAdminView() : void {
         $fileName = 'admin.php';
         $compainName = $this->request->getRequestKey('name');
         $filePath = dirname(__DIR__) . '/compains/' . $compainName . '/' . array_pop($this->arrayDir) . $fileName;
@@ -155,21 +165,30 @@ HTML;
         file_put_contents($filePath, $content);
     }
 
-    private function createChat() : void {
-        $fileName = 'chat.txt';
+    private function createChatView() : void {
         $compainName = $this->request->getRequestKey('name');
-        $filePath = COMPAIN_DIR . '/' . $compainName . '/chat/' . $fileName;
-        $content = 'Чат компании';
-        file_put_contents($filePath, $content);
 
         $ChatNameView = 'chat.php';
-        $filePathView = COMPAIN_DIR . '/' .  $compainName . '/chat-view/' . 'chat.php'; 
-        $ChatNameView = 'chat.php';
+        $filePathView = COMPAIN_DIR . '/' .  $compainName . '/chat-view/' . 'chat.php';
 
 $filePathView = COMPAIN_DIR . '/' . $compainName . '/chat-view/' . $ChatNameView;
 
+//подключение ай ди компании для идентификации чата
+$chat_id = $this->selectChatIdFromDb();
+$session_compain_id = json_encode($chat_id);
+
 $contentChatView = <<<'HTML'
-<head><link rel="stylesheet" href="/assets/css/chat.css"></head>
+<script>
+    const activeCompanyId =
+HTML
+. $session_compain_id .
+<<<'HTML'
+;
+</script>
+<head>
+    <link rel="stylesheet" href="/assets/css/chat.css">
+</head>
+
 <aside class="company-chat">
 
     <header class="company-chat__header">
@@ -187,23 +206,22 @@ $contentChatView = <<<'HTML'
         </div>
     </section>
 
-    <form class="company-chat__form" id="companyChatForm">
+    <form id="companyChatForm">
+        <input type="hidden" name="action_id" value="write-chat">
 
         <textarea
-            name="message"
-            id="companyChatInput"
-            placeholder="Введите сообщение..."
-            rows="2"
+            name="write-chat"
+            placeholder="Введите текст"
             required
         ></textarea>
 
-        <button type="submit">
-            Отправить
-        </button>
-
+        <button type="submit">Отправить</button>
     </form>
 
 </aside>
+
+<script src="https://unpkg.com/centrifuge@5.4.0/dist/centrifuge.js"></script>
+<script src="/assets/js/chat.js"></script>
 HTML;
 
 file_put_contents($filePathView, $contentChatView);
@@ -221,8 +239,9 @@ file_put_contents($filePathView, $contentChatView);
 
         $this->setFile() ;
         $this->setCompainInDB();
-        $this->createMasterAdminFileHTML();
-        $this->createChat();
+        $this->createMasterAdminView();
+        $this->createChatView();
+        
     }
 
     //удаление компании -------------

@@ -23,7 +23,22 @@ services:
       - existing
     restart: unless-stopped
 
+  centrifugo:
+    image: centrifugo/centrifugo:latest
+    container_name: orchem-centrifugo
+    command: centrifugo -c /centrifugo/config.json
+    volumes:
+      - ./centrifugo.json:/centrifugo/config.json:ro
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    networks:
+      - existing
+
 networks:
   existing:
     external: true
     name: orchem-arena_default
+
+
+
