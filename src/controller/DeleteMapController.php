@@ -26,6 +26,8 @@ class DeleteMapController {
 
          //подключаем список карт
         require_once dirname(__DIR__) . '/view/maplist.php';
+        //чат
+        require_once COMPAIN_DIR . '/' . $this->session->get()['active_compain_name'] . '/chat-view/chat.php';
     } 
     
 

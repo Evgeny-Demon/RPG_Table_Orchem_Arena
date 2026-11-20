@@ -29,10 +29,13 @@ class GetMapController {
         $mapName = $this->request->getRequestGet()['name'];
         $path = \VIEW_COMPAIN_DIR . $companyName . '/maps-view/' . $mapName;
         require_once $path;
+
+        //подключение чата
+        require_once COMPAIN_DIR . '/' . $companyName . '/chat-view/chat.php';
     }
 
 
-    private function showImage(): void {
+    private function showImage() : void {
 
         $company = $this->session->get()['active_compain_name'];
         $fileName = basename($_GET['name']);

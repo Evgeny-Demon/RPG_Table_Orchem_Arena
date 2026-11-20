@@ -20,6 +20,7 @@ class CreateMapController {
         $key = $this->session->get()["active_compain_name"];
         require_once COMPAIN_DIR . '/' . $key . '/admin-panel-view/admin.php';
         require_once dirname(__DIR__) . '/view/maplist.php';
+        require_once COMPAIN_DIR . '/' . $key . '/chat-view/chat.php';
     } 
     
 }  

@@ -50,7 +50,7 @@ class DashboardMasterCompainController {
             //достаем из БД чат и отправляем веб-сокетами наверх
             $row = $this->chatModel->SelectChatFromDB();
             $this->chatModel->sendWS($row);
-            var_dump($_SESSION);
+            
         }
 
     }

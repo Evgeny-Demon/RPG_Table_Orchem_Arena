@@ -2,9 +2,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=EB+Garamond:wght@400;500;600&display=swap');
 
 .company-chat {
+    position: fixed;
+
+    top: 100;
+    right: 20px;
+    bottom: 0;
+
+    z-index: 1000;
+
     width: 320px;
     min-width: 280px;
-    height: 600px;
+    height: 95vh;
+
+    box-sizing: border-box;
 
     display: flex;
     flex-direction: column;
@@ -38,14 +48,18 @@
 /* Заголовок */
 
 .company-chat__header {
-    padding: 20px 15px 16px;
+    padding: 100px 15px 16px;
 
     text-align: center;
 
     border-bottom: 1px solid #46433d;
+
+    flex-shrink: 0;
 }
 
 .company-chat__header h2 {
+    margin: 0;
+
     font-family: 'Cinzel', serif;
     font-size: 17px;
     font-weight: 500;
@@ -73,26 +87,50 @@
 
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 14px;
 
     padding: 15px;
 
     overflow-y: auto;
+
+    overflow-wrap: anywhere;
+    word-break: normal;
+}
+
+/* Отдельное сообщение */
+
+.company-chat__messages > * {
+    display: block;
+
+    max-width: 100%;
+    box-sizing: border-box;
+
+    padding: 8px 10px;
+
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    word-break: normal;
+
+    border-bottom: 1px solid rgba(70, 67, 61, 0.45);
 }
 
 .company-chat__empty {
     margin: auto;
+
+    padding: 0;
 
     color: #45413b;
     font-size: 17px;
     font-style: italic;
 
     text-align: center;
+
+    border: none;
 }
 
 /* Форма отправки */
 
-.company-chat__form {
+#companyChatForm {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -100,12 +138,16 @@
     padding: 15px;
 
     border-top: 1px solid #46433d;
+
+    flex-shrink: 0;
 }
 
-.company-chat__form textarea {
+#companyChatForm textarea {
     width: 100%;
     min-height: 75px;
     max-height: 140px;
+
+    box-sizing: border-box;
 
     padding: 10px;
 
@@ -124,17 +166,17 @@
     font-size: 17px;
 }
 
-.company-chat__form textarea::placeholder {
+#companyChatForm textarea::placeholder {
     color: rgba(35, 32, 27, 0.48);
 }
 
-.company-chat__form textarea:focus {
+#companyChatForm textarea:focus {
     border-color: #1c1b19;
 }
 
 /* Кнопка */
 
-.company-chat__form button {
+#companyChatForm button {
     min-height: 40px;
 
     border: 1px solid #46433d;
@@ -158,7 +200,7 @@
         color 0.25s ease;
 }
 
-.company-chat__form button:hover {
+#companyChatForm button:hover {
     background: #302e29;
     color: #89857d;
 }
@@ -175,4 +217,58 @@
 
 .company-chat__messages::-webkit-scrollbar-thumb {
     background: #46433d;
+}
+
+/* Адаптация для небольших экранов */
+
+@media (max-width: 600px) {
+    .company-chat {
+        right: 10px;
+
+        width: 280px;
+        min-width: 0;
+    }
+}
+
+
+
+/* Карточка сообщения */
+
+.chat-message {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 10px 12px;
+
+    background: rgba(25, 23, 20, 0.07);
+
+    border-left: 2px solid #46433d;
+}
+
+/* Автор */
+
+.chat-message__author {
+    font-family: 'Cinzel', serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+
+    color: #302e29;
+}
+
+/* Текст */
+
+.chat-message__text {
+    font-family: 'EB Garamond', serif;
+    font-size: 17px;
+    line-height: 1.4;
+
+    color: #1c1b19;
+
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
 }

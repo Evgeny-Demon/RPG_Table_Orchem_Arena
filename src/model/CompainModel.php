@@ -49,7 +49,7 @@ class CompainModel {
         $masterID = $this->session->get()['id'];
         $sqlInsert = 'INSERT into table_arena.compains (id_master, name, chat) VALUES (:id_mas, :comp_name, :chat);';
         $stml = $this->db->prepare($sqlInsert);
-        $chatName = 'Чат компании ' . $compainName;
+        $chatName = 'Игра началась...';
         $stml->execute([':id_mas' => $masterID, ':comp_name' => $compainName, ':chat' => $chatName]);
 
     }
@@ -206,17 +206,20 @@ HTML
         </div>
     </section>
 
-    <form id="companyChatForm">
-        <input type="hidden" name="action_id" value="write-chat">
+    
+<form id="companyChatForm">
+    <input type="hidden" name="action_id" value="write-chat">
 
-        <textarea
-            name="write-chat"
-            placeholder="Введите текст"
-            required
-        ></textarea>
+    <textarea
+        name="write-chat"
+        placeholder="Введите сообщение"
+        required
+        rows="1"
+    ></textarea>
 
-        <button type="submit">Отправить</button>
-    </form>
+    <button type="submit">Отправить</button>
+</form>
+
 
 </aside>
 

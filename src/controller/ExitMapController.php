@@ -18,5 +18,7 @@ class ExitMapController {
         require_once $path;
         //подключаем список карт
         require_once dirname(__DIR__) . '/view/maplist.php';
+        //подключаем чат
+        require_once COMPAIN_DIR . '/' . $companyName . '/chat-view/chat.php';
     }
 }

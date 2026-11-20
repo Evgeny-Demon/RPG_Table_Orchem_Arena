@@ -52,13 +52,56 @@ chatForm.addEventListener('submit', async function(e) {
     }
 });
 
+const chatTextarea = chatForm.querySelector('textarea');
+
+chatTextarea.addEventListener('keydown', function(e) {
+    if (e.key !== 'Enter') return;
+
+    e.preventDefault();
+    chatForm.requestSubmit();
+});
+
+
 sub.on('publication', function(ctx) {
     const chatWindow = document.getElementById('companyChatMessages');
 
-    if (chatWindow) {
-        chatWindow.textContent = ctx.data.text;
-    }
+    if (!chatWindow) return;
+
+    const messages = ctx.data.text.split('\n');
+
+    chatWindow.replaceChildren();
+
+    messages.forEach(function(message) {
+        if (!message.trim()) return;
+
+        const separator = message.indexOf(' ');
+
+        const author = separator === -1
+            ? message
+            : message.slice(0, separator);
+
+        const text = separator === -1
+            ? ''
+            : message.slice(separator + 1);
+
+        const messageElement = document.createElement('div');
+        messageElement.classList.add('chat-message');
+
+        const authorElement = document.createElement('div');
+        authorElement.classList.add('chat-message__author');
+        authorElement.textContent = author;
+
+        const textElement = document.createElement('div');
+        textElement.classList.add('chat-message__text');
+        textElement.textContent = text;
+
+        messageElement.append(authorElement, textElement);
+        chatWindow.appendChild(messageElement);
+    });
+
+    chatWindow.scrollTop = chatWindow.scrollHeight;
 });
+
 
 sub.subscribe();
 
