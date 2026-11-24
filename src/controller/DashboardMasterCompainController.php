@@ -2,20 +2,24 @@
 
 namespace app\controller;
 
+use app\core\Database;
 use app\core\Request;
 use app\core\Session;
 use app\model\ChatModel;
+use app\model\AuthorizationModel;
 
 class DashboardMasterCompainController {
 
     private object $request;
     private object $session;
     private object $chatModel;
+    private object $autorizationModel;
 
     public function __construct() {
     $this->request = new Request();
     $this->session = new Session();
     $this->chatModel = new ChatModel();
+    $this->autorizationModel = new AuthorizationModel(new Database());
     }
 
     //ВНИМАНИЕ - КОНТРОЛЛЕР ОБРАБАТЫВАЕТ ДВА ВИДА ЗАПРОСОВ
@@ -39,6 +43,9 @@ class DashboardMasterCompainController {
         $this->session->set('active_compain_name', $key);
         $this->session->set('active_compain_id', $gameId);
 
+        $token = $this->autorizationModel->getCompainPlayersToken();
+        $this->session->set('active_compain_token', $token);
+        var_dump($_SESSION);
         //подключаем список карт
         require_once dirname(__DIR__) . '/view/maplist.php';
         }

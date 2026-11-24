@@ -12,6 +12,7 @@ use app\controller\AuthenticationController;
 use app\controller\CompainCreateController;
 use app\controller\CompainDelController;
 use app\controller\DeleteMapController;
+use app\controller\CreateCompainTokenController;
 
 //модель для аджакс запроса
 use app\model\ChatModel;
@@ -22,8 +23,8 @@ use app\controller\CreateMapController;
 use app\controller\LogoutCompainController;
 use app\controller\GetMapController;
 use app\controller\ExitMapController;
+use app\controller\GetCompainTokenController;
 
-use app\controller\TestController;
 
 
 
@@ -41,7 +42,7 @@ class Router {
             'create-map' => CreateMapController::class, //создание карты
             'delete-map' => DeleteMapController::class, //удалление 
             'write-chat' => ChatModel::class, //обработка ajax запроса с фронтенда на прямую без контроллера НАПИСАТЬ В ЧАТ
-            'get-history-chat' => DashboardMasterCompainController::class //аджакс запрос на поднятие истории чата
+            'get-history-chat' => DashboardMasterCompainController::class, //аджакс запрос на поднятие истории чата
         ],
         'GET' => [
             '/exit' => LogoutController::class,
@@ -50,7 +51,8 @@ class Router {
             '/map-image' => GetMapController::class, //вспомогательный процесс контроллера для получения фоновой картинки для карты боя
             '/get-map' => GetMapController::class, //переход на карту боя
             '/exit-map' => ExitMapController::class,
-            '/test' => TestController::class
+             '/get-active-token' => GetCompainTokenController::class //копирование токена компании мастером из сессии для рассылки игрокам и авторизации в компании
+            
         ]
     ];
     }

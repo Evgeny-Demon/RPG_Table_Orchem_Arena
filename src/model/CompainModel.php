@@ -87,6 +87,11 @@ $content = <<<HTML
         <span>{$compainName}</span>
         <a href="/exit-compain">Выйти</a>
     </div>
+
+    <div class="topbar-center">
+    <button type="button" id="copyTokenBtn">Скопировать токен</button>
+    </div>
+
 </header>
 
 <main class="dashboard">
@@ -157,7 +162,7 @@ $content = <<<HTML
     </section>
 
 </main>
-
+    <script src="/assets/js/copy-compain-token.js" defer></script>
 </body>
 </html>
 HTML;

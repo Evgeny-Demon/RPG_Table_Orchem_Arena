@@ -11,11 +11,13 @@ class AuthorizationModel {
     private Session $session;
     private Request $request;
     private array $compainsDB = ['game_id', 'id_master', 'name'];
+    private object $randomaizer;
 
     public function __construct(Database $db) {
         $this->db = $db->connectDataBase();
         $this->session = new Session();
         $this->request = new Request();
+        $this->randomaizer = new \Random\Randomizer();
     }
 
 
@@ -46,15 +48,52 @@ class AuthorizationModel {
                 }
                         
             }
-                $sqlCompainTable = 'SELECT * FROM table_arena.compains where id_master = :id_master';
+                $sqlCompainTable = 'SELECT game_id, id_master, name FROM table_arena.compains where id_master = :id_master';
                 $stmt = $this->db->prepare($sqlCompainTable);
                 $stmt->execute([':id_master' => $this->session->get()['id']]);
 
-                // ИСПРАВЛЕНО: Явно пишем в переменную $companiesList и её же сохраняем в сессию
+                // пишем в переменную $companiesList и её же сохраняем в сессию
                 $companiesList = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
                 $this->session->set('companies', $companiesList);
             
         }
-    }    
+    }
+
+    //получение сгенерированного токена для подключения игроков
+    public function getCompainPlayersToken() : string {
+        $active_game_id = $this->session->get()['active_compain_id'];
+        $sql = "SELECT game_token from table_arena.compains where game_id = :active_game_id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([':active_game_id' => $active_game_id]);
+        $token = $stmt->fetch(\PDO::FETCH_ASSOC);
+        $token = $token['game_token'];
+
+        if($token === null) {
+        $token = $this->createCompainPlayersToken();
+        $this->setCompainPlayersTokenInDB($token);
+        }
+
+        return $token;
+    }
+    
+    //создание токена мастером для подключения игроков к компании
+    private function createCompainPlayersToken() : string {
+        $alphabet = 'ABCDEFGHJKMNPQRSTUVWXYZ123456789';
+        $token = "";
+        for($i = 3; $i > 0; --$i) {
+            $code = $this->randomaizer->getBytesFromString($alphabet, 7);
+            $token .=  "-" . $code;
+        }
+        return $token = 'CONNECT' . $token;
+    }
+
+    private function setCompainPlayersTokenInDB(string $token) : void {
+        $compain = $this->session->get()['active_compain_id'];
+        $sql = 'UPDATE table_arena.compains SET game_token = :game_token WHERE game_id = :compain_id';
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([':game_token' => $token, ':compain_id' => $compain]);
+        
+    }
+
 }

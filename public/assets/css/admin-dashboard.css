@@ -52,6 +52,7 @@ body {
 }
 
 .topbar-right {
+    order: 2;
     display: flex;
     align-items: center;
     gap: 16px;
@@ -239,4 +240,41 @@ body {
     .create-panel button {
         grid-column: auto;
     }
+}
+
+/* TOPBAR CENTER */
+
+.topbar-center {
+    order: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+    margin-right: 16px;
+}
+
+.topbar-center button {
+    height: 27px;
+    padding: 0 10px;
+    white-space: nowrap;
+    border: 1px solid var(--line);
+    background: rgba(25, 23, 20, 0.12);
+    color: var(--ink);
+    font-family: 'Cinzel', serif;
+    font-size: 8px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.topbar-center button:hover {
+    background: var(--ink-soft);
+    color: var(--paper-light);
+}
+
+.topbar-center button:disabled {
+    opacity: 0.6;
+    cursor: default;
 }
