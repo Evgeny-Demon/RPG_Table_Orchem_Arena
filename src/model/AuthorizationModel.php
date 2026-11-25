@@ -96,4 +96,22 @@ class AuthorizationModel {
         
     }
 
+    //подключение игрока
+    public function connectPlayer(string $key) : bool {
+        $sqlSearchToken = "SELECT game_id, name from table_arena.compains where game_token = :token";
+        $stmt = $this->db->prepare($sqlSearchToken);
+        $stmt->execute([':token' => $key]);
+        $active_compain = $stmt->fetch(\PDO::FETCH_ASSOC);
+        if(!empty($active_compain['game_id'])) {
+            $this->session->set('active_compain_id', $active_compain['game_id']);
+            $this->session->set('active_compain_name', $active_compain['name']);
+            return true;
+        } else {
+            return false;
+        }
+        //нужно добавить таблицу чтобы её потом джоинить ТАБЛИЦА С ИГРОКАМИ - 5 слотов для игроков. И потом вытягивать веб сокетами кто подключен 
+        //если игрок не добавит картинку то нужно тянуть что-то свое - какого нибудь крестьянина
+        // нужно подумать над тем как сохранить подключенных игроков чтобы им не пришлсоь потстоянно заново подключаться к компании
+    }
+
 }

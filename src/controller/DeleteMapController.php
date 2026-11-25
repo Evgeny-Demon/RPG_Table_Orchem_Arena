@@ -1,11 +1,12 @@
 <?php
 
 namespace app\controller;
+use app\contracts\ControllerInterface;
 
 use app\core\Session;
 use app\model\MapModel;
 
-class DeleteMapController {
+class DeleteMapController implements ControllerInterface {
 
     private object $model;
     private object $session;

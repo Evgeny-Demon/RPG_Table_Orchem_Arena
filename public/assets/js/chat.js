@@ -1,31 +1,56 @@
 
+const chatWindow = document.getElementById('companyChatMessages');
+const chatForm = document.getElementById('companyChatForm');
+
+console.log('CHAT WINDOW:', chatWindow);
 
 // Подключение к Centrifugo
 const centrifuge = new Centrifuge(
     'ws://localhost:8000/connection/websocket'
 );
 
-centrifuge.connect();
-
 centrifuge.on('connected', function(ctx) {
     console.log('CENTRIFUGO CONNECTED:', ctx);
+});
+
+centrifuge.on('disconnected', function(ctx) {
+    console.log('CENTRIFUGO DISCONNECTED:', ctx);
 });
 
 // Подписка на канал компании
 const sub = centrifuge.newSubscription(String(activeCompanyId));
 
+// Отслеживаем успешную подписку
+sub.on('subscribed', function(ctx) {
+    console.log('CENTRIFUGO SUBSCRIBED:', ctx);
 
-const chatForm = document.getElementById('companyChatForm');
+    // Запрашиваем историю только после подписки
+    loadChatHistory();
+});
 
-//загрузка истории
-document.addEventListener('DOMContentLoaded', async function(e) {
+sub.on('error', function(ctx) {
+    console.error('CENTRIFUGO SUBSCRIPTION ERROR:', ctx);
+});
+
+// Загрузка истории
+async function loadChatHistory() {
     const formData = new FormData();
     formData.append('action_id', 'get-history-chat');
-    const response = await fetch(window.location.href, {
-        method: 'POST',
-        body: formData
-    });
-})
+
+    try {
+        const response = await fetch(window.location.href, {
+            method: 'POST',
+            body: formData
+        });
+
+        const responseText = await response.text();
+
+        console.log('CHAT HISTORY RESPONSE:', response.status, responseText);
+
+    } catch (error) {
+        console.error('CHAT HISTORY ERROR:', error);
+    }
+}
 
 // Отправка сообщения через AJAX
 chatForm.addEventListener('submit', async function(e) {
@@ -39,9 +64,17 @@ chatForm.addEventListener('submit', async function(e) {
             body: formData
         });
 
-        const data = await response.json();
+        const responseText = await response.text();
 
-        console.log(data);
+        console.log('SERVER RESPONSE:', responseText);
+
+        // Не разбираем пустой ответ как JSON
+        if (!responseText.trim()) {
+            console.warn('Сервер вернул пустой ответ');
+            return;
+        }
+
+        const data = JSON.parse(responseText);
 
         if (data.status === 'ok') {
             chatForm.reset();
@@ -52,6 +85,7 @@ chatForm.addEventListener('submit', async function(e) {
     }
 });
 
+// Отправка по Enter
 const chatTextarea = chatForm.querySelector('textarea');
 
 chatTextarea.addEventListener('keydown', function(e) {
@@ -61,11 +95,12 @@ chatTextarea.addEventListener('keydown', function(e) {
     chatForm.requestSubmit();
 });
 
-
+// Получение публикаций
 sub.on('publication', function(ctx) {
-    const chatWindow = document.getElementById('companyChatMessages');
+    console.log('CENTRIFUGO PUBLICATION:', ctx.data);
 
     if (!chatWindow) return;
+    if (typeof ctx.data.text !== 'string') return;
 
     const messages = ctx.data.text.split('\n');
 
@@ -102,10 +137,6 @@ sub.on('publication', function(ctx) {
     chatWindow.scrollTop = chatWindow.scrollHeight;
 });
 
-
+// Запуск
 sub.subscribe();
-
-
-sub.on('publication', function(ctx) {
-    console.log('CENTRIFUGO PUBLICATION:', ctx.data);
-});
+centrifuge.connect();

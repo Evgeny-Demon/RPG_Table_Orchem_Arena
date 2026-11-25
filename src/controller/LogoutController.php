@@ -1,10 +1,11 @@
 <?php
 
 namespace app\controller;
+use app\contracts\ControllerInterface;
 
 use app\core\Session;
 
-class LogoutController {
+class LogoutController implements ControllerInterface {
 
     private object $session;
     public function __construct() {
@@ -12,7 +13,6 @@ class LogoutController {
     }
     
     public function handle() : void {
-        $this->session = new Session();
         $this->session->clear();
         
         if (session_status() === PHP_SESSION_ACTIVE) {

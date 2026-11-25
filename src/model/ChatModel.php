@@ -21,7 +21,7 @@ class ChatModel {
         $this->centrifugo->setApiKey("orchem_dev_api_key");
     }
 
-    public function handle () : void {
+    public function writeChat () : void {
         
         $text = $this->request->getRequestKey('write-chat');
         $login = $this->session->get()['login'];
@@ -48,7 +48,7 @@ class ChatModel {
     public function sendWS(array $row) : void {
         $active_compain_id = $this->session->get()['active_compain_id'];
         // Отправляем в Centrifugo ассоциативный массив ['text' => 'весь длинный чат']
-        $this->centrifugo->publish($active_compain_id, ['text' => $row['chat'] ?? '']);
+        $this->centrifugo->publish((string)$active_compain_id, ['text' => $row['chat'] ?? '']);
     }
 
     private function sendJsonResponse() : void {

@@ -1,11 +1,12 @@
 <?php
 
 namespace app\controller;
+use app\contracts\ControllerInterface;
 
 use app\core\Request;
 use app\core\Session;
 
-class GetMapController {
+class GetMapController implements ControllerInterface {
 
     private object $session;
     private object $request;

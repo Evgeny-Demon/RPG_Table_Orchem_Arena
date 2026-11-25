@@ -1,13 +1,14 @@
 <?php
 
 namespace app\controller;
+use app\contracts\ControllerInterface;
 
 use app\model\CompainModel;
 use app\model\AuthorizationModel;
 use app\core\Session;
 use app\core\Database;
 
-class CompainCreateController {
+class CompainCreateController implements ControllerInterface {
 
     private object $compainModel;
     private object $authorizationModel;
@@ -21,7 +22,7 @@ class CompainCreateController {
         $this->session = new Session();
     }
 
-    public function handle() {
+    public function handle() : void {
         $this->compainModel->createCompain();
         $this->authorizationModel->LoadMasterCompain();
         var_dump($_SESSION);

@@ -1,13 +1,15 @@
 <?php
 
 namespace app\controller;
+use app\contracts\ControllerInterface;
 
 use app\model\AuthenticationModel;
 use app\model\AuthorizationModel;
 use app\core\Database;
 use app\core\Session;
 
-class AuthenticationController {
+
+class AuthenticationController implements ControllerInterface {
     
 private object $authenticationModel;
 private object $authorizationModel;
@@ -21,7 +23,7 @@ public function __construct() {
         $this->session = new Session();
 }
 
-public function handle() {
+public function handle() : void {
     
     if($this->authenticationModel->authenticat()) {
         $this->authorizationModel->getAuthorization();
@@ -33,8 +35,7 @@ public function handle() {
         require_once dirname(__DIR__) . '/view/compainlist.php' ;
          }
          if ($this->session->get()['role_id'] === 2) { 
-        require_once dirname(__DIR__) . '/view/compainPlayer.php';
-        require_once dirname(__DIR__) . '/view/compainlist.php' ;
+        require_once dirname(__DIR__) . '/view/playerAutorizationCompain.php';
          }
 
     } else {

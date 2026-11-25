@@ -1,12 +1,14 @@
 <?php
 
 namespace app\controller;
+use app\contracts\ControllerInterface;
+
 use app\model\CompainModel;
 use app\model\AuthorizationModel;
 use app\core\Session;
 use app\core\Database;
 
-class CompainDelController {
+class CompainDelController implements ControllerInterface {
 
 private object $model;
 private object $session;
@@ -20,7 +22,7 @@ private object $authorizationModel;
         $this->session = new Session();
     }
 
-    public function handle() {
+    public function handle() : void {
         $this->model->delCompain();
         $this->authorizationModel->LoadMasterCompain();
         var_dump($_SESSION);

@@ -1,10 +1,11 @@
 <?php
 
 namespace app\controller;
+use app\contracts\ControllerInterface;
 
 use app\core\Session;
 
-class GetCompainTokenController {
+class GetCompainTokenController implements ControllerInterface {
 
 private Session $session;
 

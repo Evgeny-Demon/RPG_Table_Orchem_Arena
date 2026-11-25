@@ -1,10 +1,11 @@
 <?php
 
 namespace app\controller;
+use app\contracts\ControllerInterface;
 
 use app\core\Session;
 
-class ExitMapController {
+class ExitMapController implements ControllerInterface {
     private object $session;
     
     public function __construct() {
